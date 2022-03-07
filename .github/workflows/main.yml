@@ -2,8 +2,10 @@ name: FastAPI CI/CD
 
 on:
   # Trigger the workflow on push
+  # push 이벤트가 있을 때 workflow 를 유발한다
   push:
     branches: 
+      # push 이벤트가 어느 브랜치에서 일어났을 때 유발할 지 -> main 브랜치
       # Push events on main branch
       - main 
 
@@ -46,7 +48,9 @@ jobs:
         run: python -m venv venv && source venv/bin/activate && pip3 install -r requirements.txt
         if: steps.cache-venv.outputs.cache-hit != 'true'
 
+        # 테스트 돌리기
       - name: Run Tests   
+        모든 스텝에서 가상환경을 매번 실행해줘야함. 깃헙 액션은 환경을 
         # Note that you have to activate the virtualenv in every step
         # because GitHub actions doesn't preserve the environment   
         run: . venv/bin/activate && pytest
@@ -72,6 +76,7 @@ jobs:
         with:
           version: 1
         env:
+        #  aws키와 같은 민감한 정보들은 Github에 secret으로 저장하여 환경 변수로 사용한다. 변수이름 틀리게 저장하지 않도록 주의하셈.
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
@@ -81,11 +86,13 @@ jobs:
           name: api
       - name: Upload to S3
         run: aws s3 cp api.zip s3://fastapi0307/api.zip
+
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Deploy new Lambda
+      # 내가 만든 s3 버켓 이름하고 람다 함수 이름 주의해서 올바르게 작성하셈
         run: aws lambda update-function-code --function-name fastapitest0307 --s3-bucket fastapi0307 --s3-key api.zip
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
