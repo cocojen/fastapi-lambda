@@ -24,6 +24,7 @@ jobs:
         # This action sets up a Python environment for use in actions
         uses: actions/setup-python@v2
         with:
+        # 여기 파이썬 버전 설정하기
           python-version: 3.7
           # optional: architecture: x64 x64 or x86. Defaults to x64 if not specified
 
@@ -50,7 +51,7 @@ jobs:
 
         # 테스트 돌리기
       - name: Run Tests   
-        모든 스텝에서 가상환경을 매번 실행해줘야함. 깃헙 액션은 환경을 
+        # 모든 스텝에서 가상환경을 매번 실행해줘야함. 
         # Note that you have to activate the virtualenv in every step
         # because GitHub actions doesn't preserve the environment   
         run: . venv/bin/activate && pytest
