@@ -12,9 +12,6 @@ async def root():
 async def test_func():
     return {"message": "test message"}
 
-@app.get("/sushi")
-def test_func2():
-    return {"message" : "sushi sushi sushi !!!"}
 
 
 handler = Mangum(app=app)
