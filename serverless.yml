@@ -13,8 +13,8 @@ package:
   individually: true
 
 functions:
-  theLambda:
-    name: test-lambda
+  fastapiApp:
+    name: tuesday-test
     handler: api/main.handler
     description: test-lambda
     timeout: 5 # seconds
