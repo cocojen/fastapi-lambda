@@ -1,5 +1,6 @@
 from mangum import Mangum
 from fastapi import FastAPI
+import numpy as np
 
 app = FastAPI()
 
@@ -12,6 +13,11 @@ async def root():
 async def test_func():
     return {"message": "test message"}
 
+
+@app.get("/numpy")
+async def test_package_numpy():
+    a = np.arange(15).reshape(3, 5)
+    return {"message": a.ndim}
 
 
 handler = Mangum(app=app)
