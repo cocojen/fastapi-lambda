@@ -12,6 +12,18 @@ plugins:
 package:
   individually: true
 
+custom:
+  pythonRequirements:
+    dockerizePip: true  # docker 환경에서 python package 빌드, site-packges 압축전 사이즈 262mb가 넘으면 안됨
+    layer:
+      name: test-layer
+      description: fastapi test layer
+      compatibleRuntimes:
+        - python3.8
+  warmup:
+    default:
+      enabled: true # 기본값으로 5분마다 warmup trigger
+
 functions:
   fastapiApp:
     name: tuesday-test
@@ -25,8 +37,8 @@ functions:
         - "!yarn.lock"
         - "!package-lock.json"
         - "!package.json"
-    # layers:
-    #   - { Ref: PythonRequirementsLambdaLayer }
+    layers:
+      - { Ref: PythonRequirementsLambdaLayer }
     events:
       - http:
           path: /{proxy+}
