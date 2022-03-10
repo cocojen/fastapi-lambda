@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:   
       # Check out repo so our workflow can access it
-      This action checks-out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
       # 내 레파지토리를 체크아웃하는 깃헙 공식 액션임.
       - uses: actions/checkout@v2
       
