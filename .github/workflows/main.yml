@@ -52,7 +52,7 @@ jobs:
   DEPLOY:
     # DEPLOY 작업은 TEST 작업이 완전히 끝난 후에 DEPLOY 작업을 실행하게함. 의존성 가지게.
     needs: TEST
-    name: deploy
+    name: DEPLOY
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: 14.x # used for installing the serverless-python-requirements dependency from NPM
