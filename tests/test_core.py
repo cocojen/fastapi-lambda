@@ -6,6 +6,6 @@ client = TestClient(app)
 def test_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Hello World 2"}
+    assert response.json() == {"message": "Hello World 0311"}
     
     # 뭐야
