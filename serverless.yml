@@ -33,11 +33,18 @@ functions:
     timeout: 5 # seconds
     memorySize: 128 # mb
     package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package-lock.json"
-        - "!package.json"
+      exclude:
+        - ".serverless/**"
+        - "node_modules/**"
+        - "venv/**"
+        - "config/**"
+        - "requirements.txt"
+        - "package.json"
+        - "package-lock.json"
+        - "README*"
+        - "temp/**"
+        - "notebook/**"
+        - "lambda_trigger/**"
     layers:
       - { Ref: PythonRequirementsLambdaLayer }
     events:
