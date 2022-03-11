@@ -8,6 +8,7 @@ provider:
 
 plugins:
   - serverless-python-requirements
+  - serverless-plugin-warmup
 
 package:
   individually: true
